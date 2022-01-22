@@ -1,3 +1,3 @@
 # Vue Mini Project
 
-This repository contains a collection of mini project mainly build with vueJS.
+This repository contains a collection of mini projects mainly build with vueJS.

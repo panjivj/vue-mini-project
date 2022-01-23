@@ -1,20 +1,23 @@
 <template>
-	<div class="mx-auto max-w-2xl text-center">
+	<div class="mx-auto max-w-2xl text-center mt-10">
 		<div class="header mx-auto" id="myHeader">
-			<h1 class="text-lg text-indigo-500 font-bold">Image Gallery</h1>
-			<p>Click on the buttons to change the grid view.</p>
-			<button :class="btnActive" :onclick="change4">4 image</button>
-			<button :class="btnActive" :onclick="change2">2 image</button>
-			<button :class="btnActive" :onclick="change1">1 image</button>
+			<h1 class="text-lg text-violet-600 font-bold">Image Gallery</h1>
+			<p class="text-gray-800">Click on the buttons to change the grid view.</p>
+			<button class="my-button" v-on:click="changeColumn(4)">4 columns</button>
+			<button class="my-button" v-on:click="changeColumn(2)">2 columns</button>
+			<button class="my-button" v-on:click="changeColumn(1)">1 column</button>
 		</div>
 		<div class="text-center">
 			<div :class="myStyle">
 				<div v-for="index in 16" :key="index" class="px-2">
-					<img
-						src="https://picsum.photos/800"
-						alt="photo"
-						class="bg-white rounded-xl shadow-md m-3 mx-auto"
-					/>
+					<transition name="bounce">
+						<img
+							v-if="show"
+							src="https://picsum.photos/800"
+							alt="photo"
+							class="bg-white rounded-xl drop-shadow-xl m-3 mx-auto"
+						/>
+					</transition>
 				</div>
 			</div>
 		</div>
@@ -23,61 +26,35 @@
 <script setup>
 import { ref } from "vue";
 
-var myStyle = ref({ wd50: true });
-var btnActive = ref({ btn: true });
+const show = ref(true);
 
-function change4() {
-	myStyle.value = { wd25: true };
-	// btnActive.value = { active: true };
-}
-function change2() {
-	myStyle.value = { wd50: true };
-	// btnActive.value = { active: true };
-}
-function change1() {
-	myStyle.value = { wd100: true };
-	// btnActive.value = { active: true };
+var myStyle = ref({ column2: true });
+
+function changeColumn(c) {
+	if (c === 1) {
+		myStyle.value = { column1: true };
+	} else if (c === 4) {
+		myStyle.value = { column4: true };
+	} else {
+		myStyle.value = { column2: true };
+	}
 }
 </script>
 <style scoped>
-/* * {
-	outline: 1px solid red;
-} */
-
-.wd25 {
+.column4 {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 }
-.wd50 {
+.column2 {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 }
-.wd100 {
+.column1 {
 	display: grid;
 	grid-template-columns: repeat(1, 1fr);
 }
 
-/* Button */
-.btn {
-	border: none;
-	outline: none;
-	padding: 10px 16px;
-	background-color: #f1f1f1;
-	cursor: pointer;
-	font-size: 18px;
-}
-
-.btn:hover {
-	background-color: #ddd;
-}
-
-/* .active {
-	border: none;
-	outline: none;
-	padding: 10px 16px;
-	cursor: pointer;
-	font-size: 18px;
-	background-color: #666;
-	color: white;
+/* * {
+	outline: 1px solid red;
 } */
 </style>

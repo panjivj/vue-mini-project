@@ -6,4 +6,4 @@
 import ImageGallery from "./components/ImageGallery.vue";
 </script>
 
-<style></style>
+<style lang="scss" scoped></style>
